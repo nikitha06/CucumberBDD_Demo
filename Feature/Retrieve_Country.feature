@@ -5,9 +5,9 @@
 #Given: Some precondition step
 #When: Some key actions
 #Then: To observe outcomes or validation
-Feature: To Test Get Default Country details using Rest API Fucntionality
+Feature: To Test Get Country details using Rest API Fucntionality
 
-  #@smoke
+  @smoke
 Scenario: Successful Search with Valid Input of Country
 	Given User is on RestCountries URI Home Page
 	When User Enter the keyword "USA"

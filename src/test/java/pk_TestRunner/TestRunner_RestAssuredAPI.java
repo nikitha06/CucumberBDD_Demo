@@ -10,8 +10,9 @@ import io.cucumber.junit.CucumberOptions;
 		//features = {"Feature/Retrieve_Country.feature"}
 		//features = { "Feature/Get_Default_Country.feature" }
 		//features = {"Feature/Create_Token.feature"}
-		features = {"Feature/Retrieve_Country_Multiple_Data.feature"}
-		// features = {"Feature"}
+		//features = {"Feature/Retrieve_Country_Multiple_Data.feature"}
+		//features = {"Feature/Create_Address_Using_Token.feature"}
+		features = {"Feature"}
 		, glue = "pk_StepDefinition", dryRun = false, monochrome = true, plugin = { "pretty",
 				"html:CucumberReport/Report.html" }
 // ,plugin =
@@ -22,7 +23,7 @@ import io.cucumber.junit.CucumberOptions;
 // ,tags= "@smoke or @sanity"
 // Execute Smoke and Sanity , but both should be marked together in feature
 // ,tags= "@smoke and @sanity"
-// ,tags= "@smoke"
+,tags= "@smoke"
 
 )
 

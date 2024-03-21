@@ -7,7 +7,7 @@
 #Then: To observe outcomes or validation
 Feature: To Test Get Default Country details using Rest API Fucntionality
 
-  #@smoke
+  @smoke
   Scenario: Successful return of deafult country that should be USA
     Given User is on Spreecom Base URI Home Page
     When User pass the end points using GET keyword

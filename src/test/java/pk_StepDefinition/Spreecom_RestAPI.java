@@ -11,7 +11,7 @@ import io.restassured.http.Method;
 import io.restassured.path.json.JsonPath;
 
 public class Spreecom_RestAPI {
-
+	String act_token;
 	private RestAPI_Context stepData;
 
 	// Now with just adding Constructor to RestAssuredAPIStepDefinition file and
@@ -162,7 +162,7 @@ public class Spreecom_RestAPI {
 		String responseBody = stepData.response.getBody().asString();
 		  System.out.println("Response Body is =>  " + responseBody);
 		  stepData.jsonPathEvaluator = new JsonPath(responseBody);  
-		  String act_token = stepData.jsonPathEvaluator.get("access_token");
+		  act_token = stepData.jsonPathEvaluator.get("access_token");
 			System.out.println(act_token);
 	}
 	
@@ -182,6 +182,48 @@ public class Spreecom_RestAPI {
 			System.out.println(iso_act);
 			Assert.assertEquals(iso_act,Exp_iso_name);
 	    
+	}
+	@Given("User send POST request for Create Address")
+	public void user_send_post_request_for_create_address() {
+	    // Write code here that turns the phrase above into concrete actions
+		 RestAssured.baseURI = "https://demo.spreecommerce.org";
+		  
+		  // Get the RequestSpecification of the request that you want to sent
+		  // to the server. The server is specified by the BaseURI that we have
+		  // specified in the above step.
+		  stepData.httpRequest = RestAssured.given();
+		  
+	}
+	@When("User Enter address details data through Body")
+	public void user_enter_address_details_data_through_body() {
+		JSONObject newAddress = new JSONObject();
+		newAddress.put("firstname", "Abhi");
+		newAddress.put("lastname", "dixit");
+		newAddress.put("address1", "BTM");
+		newAddress.put("city", "Qethesda");
+		newAddress.put("zipcode", "90210");
+		newAddress.put("phone", "3488545445002");
+		newAddress.put("state_name", "CA");
+		newAddress.put("country_iso", "US");
+		JSONObject body = new JSONObject();
+		body.put("address", newAddress);
+		  // Add a header stating the Request body is a JSON
+        stepData.httpRequest.header("Content-Type", "application/json");
+        stepData.httpRequest.header("Authorization", "Bearer "+act_token);
+        stepData.httpRequest.body(body.toJSONString());
+	    // Write code here that turns the phrase above into concrete actions
+		stepData.response = stepData.httpRequest.request(Method.POST, "/api/v2/storefront/account/addresses");
+		   
+	}
+	@Then("verify the first and lastname of address returned by server")
+	public void verify_the_first_and_lastname_of_address_returned_by_server() {
+	    // Write code here that turns the phrase above into concrete actions
+		String responseBody = stepData.response.getBody().asString();
+		  System.out.println("Response Body is =>  " + responseBody);
+		  stepData.jsonPathEvaluator = new JsonPath(responseBody);  
+		  String fname = stepData.jsonPathEvaluator.get("data.attributes.firstname");
+			System.out.println(fname);
+			Assert.assertEquals(fname,"Abhi");
 	}
 
 }

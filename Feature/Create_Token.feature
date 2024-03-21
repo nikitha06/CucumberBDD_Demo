@@ -7,7 +7,7 @@
 #Then: To observe outcomes or validation
 Feature: To Test Token creation details using Rest API Fucntionality
 
-  #@smoke
+  @smoke
   Scenario: Successful Generation of Token with Valid email_ID and Password
     Given User send POST request for CreateToken using Base URI
     When User Enter the Body data as email id "nikitha@spree.com" and password "spree@123"
